@@ -1,0 +1,70 @@
+html {
+    height: 100%;
+
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    height: 100%;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 2rem 0;
+    font-size: 1.2rem;
+
+    background: url("../img/background.png");
+    background-size: cover;
+    object-fit: cover;
+}
+
+.nav {
+    display: flex;
+
+    list-style: none;
+
+    margin: 0;
+    padding: 0;
+}
+
+.nav_item {
+    margin: 0 2rem 0 0;
+}
+
+.nav__link{
+    color: #b0c4da;
+}
+
+.event-listener-form {
+    margin: 0 2rem 0 0;
+}
+
+.main_page_link {
+    color: #b0c4da;
+    margin: 0 0 0 2rem;
+}
+
+.nav__link:hover {
+    color: #fff;
+    transition: 1s;
+}
+
+.form-select {
+    font-size: 1.2rem;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+
+    color: #b0c4da;
+    background-color: transparent;
+}
+
+.option{
+    color: #000;
+}

@@ -1,0 +1,54 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<fmt:setBundle basename="local"/>
+
+<link href="${pageContext.request.contextPath}/static/css/header.css" rel="stylesheet" type="text/css">
+
+
+<header class="header">
+    <a class="main_page_link nav_item nav__link" href="${pageContext.request.contextPath}/menu">MyRestaurant</a>
+
+    <ul class="nav">
+        <c:if test="${user.roleId != 1}">
+            <li class="nav_item">
+                <a class="nav__link" href="${pageContext.request.contextPath}/menu"><fmt:message
+                        key="header.link.menu"/></a>
+            </li>
+
+            <li class="nav_item">
+                <a class="nav__link" href="${pageContext.request.contextPath}/cart"><fmt:message
+                        key="header.link.cart"/></a>
+            </li>
+        </c:if>
+
+        <c:if test="${user.roleId == 1}">
+            <li class="nav_item">
+                <a class="nav__link" href="${pageContext.request.contextPath}/receipts"><fmt:message
+                        key="header.link.receipts"/></a>
+            </li>
+
+            <li class="nav_item">
+                <a class="nav__link" href="${pageContext.request.contextPath}/users"><fmt:message
+                        key="header.link.users"/></a>
+            </li>
+        </c:if>
+
+        <li class="nav_item">
+            <a class="nav__link" href="${pageContext.request.contextPath}/account"><fmt:message
+                    key="header.link.account"/></a>
+        </li>
+
+        <li class="locale_item">
+
+            <form class="event-listener-form">
+                <select name="locale" class="form-select">
+                    <c:forEach var="locEl" items="${sessionScope.localesArr}">
+                        <option class="option" ${sessionScope.locale == locEl ? "selected" : ""}>${locEl}</option>
+                    </c:forEach>
+                </select>
+            </form>
+
+        </li>
+    </ul>
+</header>
+
+<script src="${pageContext.request.contextPath}/static/js/language-select.js"></script>
