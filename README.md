@@ -14,4 +14,4 @@ Final project for EPAM Java external courses.
 
 ## Database Schema
 
-<p align="center"><img src="https://imgur.com/a/xkKowSS" width="800"></p>
+<p align="center"><img src="https://imgur.com/9EE4XmJ" width="800"></p>
