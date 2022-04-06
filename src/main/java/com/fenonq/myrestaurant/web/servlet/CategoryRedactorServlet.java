@@ -5,8 +5,6 @@ import com.fenonq.myrestaurant.db.entity.Category;
 import com.fenonq.myrestaurant.db.entity.enums.Locales;
 import com.fenonq.myrestaurant.exception.AppException;
 import com.fenonq.myrestaurant.exception.DBException;
-import com.fenonq.myrestaurant.validation.Validation;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -63,12 +61,10 @@ public class CategoryRedactorServlet extends HttpServlet {
                 case 1:
                     String[] nameLocalization = new String[locales.length];
                     for (int i = 0; i < nameLocalization.length; i++) {
-                        nameLocalization[i] = Validation.validateName(req.getParameter("name_" + locales[i].toString().toLowerCase()));
+                        nameLocalization[i] = req.getParameter("name_" + locales[i].toString().toLowerCase());
                     }
                     category = new Category(nameLocalization);
-
                     DaoFactory.getInstance().getCategoryDao().create(category);
-
                     resp.sendRedirect(req.getContextPath() + "/account/category-redactor");
                     break;
             }

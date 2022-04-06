@@ -9,14 +9,14 @@ public class Validation {
 
     public static String validateName(String name) {
         if (!Pattern.matches(REGEX_NAME, name)){
-            throw new IllegalArgumentException("Incorrect login");
+            throw new IllegalArgumentException("Incorrect name");
         }
         return name;
     }
 
     public static int validatePositiveNumber(int number) {
         if (number < 1) {
-            throw new IllegalArgumentException("Incorrect name");
+            throw new IllegalArgumentException("Incorrect number");
         }
         return number;
     }
