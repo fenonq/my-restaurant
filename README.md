@@ -1,5 +1,5 @@
 # MyRestaurant
-Final project for EPAM Java external courses.
+Final project for EPAM Java courses
 
 ### Topic: "Restaurant"
 
