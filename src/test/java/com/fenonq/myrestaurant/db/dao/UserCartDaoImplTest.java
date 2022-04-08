@@ -161,7 +161,7 @@ class UserCartDaoImplTest {
         Map<SubDish, DishDescription[]> dishes = new HashMap<>();
 
         for (int i = 0; i < count; i++) {
-            SubDish subDish = new SubDish(100 + i, 100 + i, 1 + i);
+            SubDish subDish = new SubDish(100 + i, 100 + i, 1 + i, 1);
             DishDescription[] dishDescriptions = new DishDescription[Locales.values().length];
             for (int j = 0; j < Locales.values().length; j++) {
                 dishDescriptions[j] = new DishDescription(j, "TestName" + i + j, "TestDescription" + i + j);

@@ -18,7 +18,8 @@ public class TestDBTools {
                     "    id          INT AUTO_INCREMENT PRIMARY KEY," +
                     "    price       INT NOT NULL," +
                     "    weight      INT NOT NULL," +
-                    "    category_id INT NOT NULL" +
+                    "    category_id INT NOT NULL," +
+                    "    is_visible  BOOLEAN DEFAULT 1" +
                     ")";
 
     public static final String CREATE_TABLE_DISH_DESCRIPTION =

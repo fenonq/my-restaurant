@@ -36,8 +36,9 @@ public class UpdateDishServlet extends HttpServlet {
             int price = Integer.parseInt(req.getParameter("price"));
             int weight = Integer.parseInt(req.getParameter("weight"));
             int categoryId = Integer.parseInt(req.getParameter("category"));
+            int isVisible = DaoFactory.getInstance().getDishDao().findById(dishId, Locales.EN).getIsVisible();
 
-            SubDish subDish = new SubDish(price, weight, categoryId);
+            SubDish subDish = new SubDish(price, weight, categoryId, isVisible);
             subDish.setId(dishId);
 
             DishDescription[] dishDescriptions = new DishDescription[locales.length];

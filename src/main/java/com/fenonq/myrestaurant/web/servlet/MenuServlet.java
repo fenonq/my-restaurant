@@ -42,7 +42,6 @@ public class MenuServlet extends HttpServlet {
 
         req.getSession().setAttribute("page", page);
         try {
-
             List<Category> categories = DaoFactory.getInstance().getCategoryDao().findAll(locale);
             req.getSession().setAttribute("categories", categories);
 
@@ -52,12 +51,14 @@ public class MenuServlet extends HttpServlet {
                 dishes = DaoFactory.getInstance().getDishDao()
                         .findSortedDishesOnPage(locale, orderBy, dishesOnPage, page);
                 dishNumber = DaoFactory.getInstance().getDishDao().getDishesNumber();
+
             } else {
                 dishes = DaoFactory.getInstance().getDishDao()
                         .findSortedByCategoryIdOnPage(locale, orderBy, category, dishesOnPage, page);
                 dishNumber = DaoFactory.getInstance().getDishDao().getDishesNumberInCategory(category);
             }
-            int pages = dishNumber % dishesOnPage == 0 ? (dishNumber / dishesOnPage) - 1 : dishNumber / dishesOnPage;
+            int pages = dishNumber == 0 ? 0 :
+                    dishNumber % dishesOnPage == 0 ? (dishNumber / dishesOnPage) - 1 : dishNumber / dishesOnPage;
 
             req.getSession().setAttribute("pages", pages);
             req.getSession().setAttribute("dishes", dishes);
@@ -66,7 +67,5 @@ public class MenuServlet extends HttpServlet {
             log.error("Error: " + e);
             throw new AppException(e);
         }
-
     }
-
 }

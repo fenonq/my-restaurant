@@ -7,14 +7,16 @@ public class SubDish {
     private int price;
     private int weight;
     private int categoryId;
+    private int isVisible;
 
     public SubDish() {
     }
 
-    public SubDish(int price, int weight, int categoryId) {
+    public SubDish(int price, int weight, int categoryId, int isVisible) {
         this.price = price;
         this.weight = weight;
         this.categoryId = categoryId;
+        this.isVisible = isVisible;
     }
 
     public int getId() {
@@ -49,6 +51,14 @@ public class SubDish {
         this.categoryId = categoryId;
     }
 
+    public int getIsVisible() {
+        return isVisible;
+    }
+
+    public void setIsVisible(int isVisible) {
+        this.isVisible = isVisible;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -72,6 +82,7 @@ public class SubDish {
                 ", price=" + price +
                 ", weight=" + weight +
                 ", categoryId=" + categoryId +
+                ", isVisible=" + isVisible +
                 '}';
     }
 }

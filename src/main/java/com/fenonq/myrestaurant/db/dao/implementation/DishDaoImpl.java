@@ -9,6 +9,7 @@ import com.fenonq.myrestaurant.db.entity.enums.Locales;
 import com.fenonq.myrestaurant.exception.DBException;
 
 import static com.fenonq.myrestaurant.db.dao.DBTools.*;
+import static com.fenonq.myrestaurant.db.dao.DBTools.UPDATE_DISH_STATUS;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class DishDaoImpl extends ConnectionSettings implements DishDao {
         d.setWeight(rs.getInt("weight"));
         d.setPrice(rs.getInt("price"));
         d.setCategoryId(rs.getInt("category_id"));
+        d.setIsVisible(rs.getInt("is_visible"));
         return d;
     }
 
@@ -33,6 +35,7 @@ public class DishDaoImpl extends ConnectionSettings implements DishDao {
         stmt.setInt(++k, dish.getPrice());
         stmt.setInt(++k, dish.getWeight());
         stmt.setInt(++k, dish.getCategoryId());
+        stmt.setInt(++k, dish.getIsVisible());
         return k;
     }
 
@@ -151,6 +154,7 @@ public class DishDaoImpl extends ConnectionSettings implements DishDao {
             con.setAutoCommit(false);
             con.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
 
+            dish.setIsVisible(1);
             setAttributesDish(dish, stmt);
 
             int count = stmt.executeUpdate();
@@ -345,4 +349,20 @@ public class DishDaoImpl extends ConnectionSettings implements DishDao {
         }
     }
 
+    @Override
+    public void changeStatus(int dishId, int isVisible) throws DBException {
+        try (Connection con = getConnection();
+             PreparedStatement stmt = con.prepareStatement(UPDATE_DISH_STATUS)) {
+
+            int k = 0;
+
+            stmt.setInt(++k, Math.abs(isVisible - 1));
+            stmt.setInt(++k, dishId);
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DBException("Error in method changeRole user", e);
+        }
+    }
 }

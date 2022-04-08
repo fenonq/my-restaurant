@@ -77,4 +77,12 @@ public interface DishDao extends Dao<Dish> {
      * @return SubDish object
      */
     SubDish findSubDishById(int id) throws DBException;
+
+    /**
+     * Change dish status to visible/invisible
+     *
+     * @param dishId unique dish identifier
+     * @param isVisible is visible dish
+     */
+    void changeStatus(int dishId, int isVisible) throws DBException;
 }

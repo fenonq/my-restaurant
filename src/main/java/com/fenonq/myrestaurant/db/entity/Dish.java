@@ -13,6 +13,7 @@ public class Dish implements Serializable {
     private int price;
     private int categoryId;
     private int weight;
+    private int isVisible;
 
 
     public static final Map<String, String> orderByParams = new HashMap<>();
@@ -72,6 +73,14 @@ public class Dish implements Serializable {
         this.weight = weight;
     }
 
+    public int getIsVisible() {
+        return isVisible;
+    }
+
+    public void setIsVisible(int isVisible) {
+        this.isVisible = isVisible;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -94,6 +103,7 @@ public class Dish implements Serializable {
                 ", price=" + price +
                 ", categoryId=" + categoryId +
                 ", weight=" + weight +
+                ", isVisible=" + isVisible +
                 '}';
     }
 }

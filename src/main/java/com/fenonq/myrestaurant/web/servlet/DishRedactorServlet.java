@@ -55,7 +55,9 @@ public class DishRedactorServlet extends HttpServlet {
             switch (action) {
                 case -1:
                     dishId = Integer.parseInt(req.getParameter("dishId"));
-                    DaoFactory.getInstance().getDishDao().deleteById(dishId);
+                    int isVisible = Integer.parseInt(req.getParameter("isVisible"));
+
+                    DaoFactory.getInstance().getDishDao().changeStatus(dishId, isVisible);
                     resp.sendRedirect(req.getContextPath() + "/account/dish-redactor");
                     break;
 
@@ -82,7 +84,7 @@ public class DishRedactorServlet extends HttpServlet {
                     int weight = Validation.validatePositiveNumber(Integer.parseInt(req.getParameter("weight")));
                     int categoryId = Integer.parseInt(req.getParameter("category"));
 
-                    subDish = new SubDish(price, weight, categoryId);
+                    subDish = new SubDish(price, weight, categoryId, 1);
 
                     DishDescription [] dishDescriptions = new DishDescription[locales.length];
                     for (int i = 0; i < dishDescriptions.length; i++) {

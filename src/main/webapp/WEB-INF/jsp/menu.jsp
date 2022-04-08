@@ -29,14 +29,14 @@
             <form class="filter_form" action="${pageContext.request.contextPath}/menu" method="get">
                 <div>
                     <fmt:message key="menu.info.select.category"/>:
-                        <select name="category" class="filter-select">
-                            <option value="0"><fmt:message key="menu.info.select.allDishes"/></option>
-                            <c:forEach var="category" items="${categories}">
-                                <option ${param.category == category.id ? "selected" : ""} value="${category.id}">
-                                        ${category.name}
-                                </option>
-                            </c:forEach>
-                        </select>
+                    <select name="category" class="filter-select">
+                        <option value="0"><fmt:message key="menu.info.select.allDishes"/></option>
+                        <c:forEach var="category" items="${categories}">
+                            <option ${param.category == category.id ? "selected" : ""} value="${category.id}">
+                                    ${category.name}
+                            </option>
+                        </c:forEach>
+                    </select>
                 </div>
                 <div>
                     <fmt:message key="menu.info.select.sortBy"/>:
@@ -65,23 +65,25 @@
         <div class="dishes_wrapper">
             <div class="dishes">
                 <c:forEach var="dish" items="${dishes}">
-                    <div class="dish">
-                        <img src="${pageContext.request.contextPath}/static/img/dish-${dish.id}.png"
-                             alt="${dish.name} img"
-                             class="dish_img">
-                        <p class="dish_text dish_name">${dish.name}</p>
-                        <p class="dish_text dish_description">${fn:substring(dish.description, 0, 110)}</p>
-                        <p class="dish_text dish_weight">${dish.weight} <fmt:message key="menu.info.gram"/></p>
-                        <p class="dish_text dish_price">${dish.price}<pricetag:priceSign/></p>
-                        <c:if test="${user.roleId != 1}">
-                            <form action="${pageContext.request.contextPath}/cart" method="post">
-                                <input name="id" style="display: none" value="${dish.id}">
-                                <input value="1" name="count" style="display: none">
-                                <button type="submit"
-                                        class="dish_button"><fmt:message key="menu.nav.bar.button.add"/></button>
-                            </form>
-                        </c:if>
-                    </div>
+                    <c:if test="${dish.isVisible == 1}">
+                        <div class="dish">
+                            <img src="${pageContext.request.contextPath}/static/img/dish-${dish.id}.png"
+                                 alt="${dish.name} img"
+                                 class="dish_img">
+                            <p class="dish_text dish_name">${dish.name}</p>
+                            <p class="dish_text dish_description">${fn:substring(dish.description, 0, 110)}</p>
+                            <p class="dish_text dish_weight">${dish.weight} <fmt:message key="menu.info.gram"/></p>
+                            <p class="dish_text dish_price">${dish.price}<pricetag:priceSign/></p>
+                            <c:if test="${user.roleId != 1}">
+                                <form action="${pageContext.request.contextPath}/cart" method="post">
+                                    <input name="id" style="display: none" value="${dish.id}">
+                                    <input value="1" name="count" style="display: none">
+                                    <button type="submit"
+                                            class="dish_button"><fmt:message key="menu.nav.bar.button.add"/></button>
+                                </form>
+                            </c:if>
+                        </div>
+                    </c:if>
                 </c:forEach>
             </div>
         </div>

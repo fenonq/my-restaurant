@@ -257,11 +257,30 @@ class DishDaoImplTest {
         assertEquals(dishTestMap.size(), dishDao.getDishesNumberInCategory(categoryId));
     }
 
+    @Test
+    void testChangeStatus() throws DBException {
+        assertEquals(Collections.EMPTY_LIST, dishDao.findAll(Locales.EN));
+        Map<SubDish, DishDescription[]> dishTestMap = getTestDishes(1);
+
+        int inVisible = 0;
+        int visible = 1;
+
+        for (SubDish subDish : dishTestMap.keySet()) {
+            DishDescription[] dishDescriptions = dishTestMap.get(subDish);
+            dishDao.createDish(subDish, dishDescriptions);
+        }
+
+        assertEquals(visible, dishDao.findAll(Locales.EN).get(0).getIsVisible());
+        dishDao.changeStatus(dishDao.findAll(Locales.EN).get(0).getId(),
+                dishDao.findAll(Locales.EN).get(0).getIsVisible());
+        assertEquals(inVisible, dishDao.findAll(Locales.EN).get(0).getIsVisible());
+    }
+
     public static Map<SubDish, DishDescription[]> getTestDishes(int count) {
         Map<SubDish, DishDescription[]> dishes = new HashMap<>();
 
         for (int i = 0; i < count; i++) {
-            SubDish subDish = new SubDish(100 + i, 100 + i, 1 + i);
+            SubDish subDish = new SubDish(100 + i, 100 + i, 1 + i, 1);
             DishDescription[] dishDescriptions = new DishDescription[Locales.values().length];
             for (int j = 0; j < Locales.values().length; j++) {
                 dishDescriptions[j] = new DishDescription(j, "TestName" + i + j, "TestDescription" + i + j);

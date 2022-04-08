@@ -11,18 +11,19 @@ public class DBTools {
     private static final Logger log = LogManager.getLogger(DBTools.class.getName());
 
     public static final String SELECT_FROM_DISH = "SELECT dish.*, dish_description.name, dish_description.description FROM dish INNER JOIN dish_description ON dish.id = dish_description.dish_id WHERE language_id = ?";
-    public static final String SELECT_COUNT_DISH = "SELECT COUNT(*) FROM dish";
+    public static final String SELECT_COUNT_DISH = "SELECT COUNT(*) FROM dish WHERE is_visible = 1";
     public static final String SELECT_DISH_BY_ID = "SELECT dish.*, dish_description.name, dish_description.description FROM dish INNER JOIN dish_description ON dish.id = dish_description.dish_id WHERE dish.id = ? AND language_id = ?";
     public static final String SELECT_DISH_DESCRIPTION_BY_ID = "SELECT * FROM dish_description WHERE dish_id = ?";
     public static final String SELECT_SUB_DISH_BY_ID = "SELECT * FROM dish WHERE id = ?";
-    public static final String SELECT_SORTED_DISHES = "SELECT dish.*, dish_description.name, dish_description.description FROM dish INNER JOIN dish_description ON dish.id = dish_description.dish_id WHERE language_id = ? ORDER BY ";
-    public static final String SELECT_DISHES_BY_CATEGORY = "SELECT dish.*, dish_description.name, dish_description.description FROM dish INNER JOIN dish_description ON dish.id = dish_description.dish_id WHERE language_id = ? AND category_id = ? ORDER BY ";
-    public static final String SELECT_COUNT_DISH_BY_CATEGORY = "SELECT COUNT(*) FROM dish WHERE category_id = ?";
-    public static final String INSERT_INTO_DISH = "INSERT INTO dish VALUES (DEFAULT, ?, ?, ?)";
+    public static final String SELECT_SORTED_DISHES = "SELECT dish.*, dish_description.name, dish_description.description FROM dish INNER JOIN dish_description ON dish.id = dish_description.dish_id WHERE language_id = ? AND is_visible = 1 ORDER BY ";
+    public static final String SELECT_DISHES_BY_CATEGORY = "SELECT dish.*, dish_description.name, dish_description.description FROM dish INNER JOIN dish_description ON dish.id = dish_description.dish_id WHERE language_id = ? AND category_id = ? AND is_visible = 1 ORDER BY ";
+    public static final String SELECT_COUNT_DISH_BY_CATEGORY = "SELECT COUNT(*) FROM dish WHERE category_id = ? AND is_visible = 1";
+    public static final String INSERT_INTO_DISH = "INSERT INTO dish VALUES (DEFAULT, ?, ?, ?, ?)";
     public static final String INSERT_INTO_DISH_DESCRIPTION = "INSERT INTO dish_description VALUES (?, ?, ?, ?)";
     public static final String DELETE_DISH = "DELETE FROM dish WHERE id = ?";
-    public static final String UPDATE_DISH = "UPDATE dish SET price = ?, weight = ?, category_id = ? WHERE id = ?";
+    public static final String UPDATE_DISH = "UPDATE dish SET price = ?, weight = ?, category_id = ?, is_visible = ? WHERE id = ?";
     public static final String UPDATE_DISH_DESCRIPTION = "UPDATE dish_description SET name = ?, description = ? WHERE dish_id = ? AND language_id = ?";
+    public static final String UPDATE_DISH_STATUS = "UPDATE dish SET is_visible = ? WHERE id = ?";
 
     public static final String SELECT_CATEGORY_BY_ID = "SELECT * FROM category WHERE id = ?";
     public static final String INSERT_INTO_CATEGORY = "INSERT INTO category VALUES (DEFAULT, ?, ?)";
