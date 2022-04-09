@@ -45,10 +45,13 @@ public class CartServlet extends HttpServlet {
                             if (cart.containsKey(entry.getKey())) {
                                 continue;
                             }
-                            DaoFactory.getInstance().getUserCartDao()
-                                    .addDishToCart(user.getId(), entry.getKey().getId(), entry.getValue());
 
-                            cart.put(entry.getKey(), entry.getValue());
+                            if (DaoFactory.getInstance().getDishDao().findById(entry.getKey().getId(), Locales.EN) != null) {
+                                DaoFactory.getInstance().getUserCartDao()
+                                        .addDishToCart(user.getId(), entry.getKey().getId(), entry.getValue());
+
+                                cart.put(entry.getKey(), entry.getValue());
+                            }
                         }
                     }
                     req.getSession().setAttribute("cart", cart);
