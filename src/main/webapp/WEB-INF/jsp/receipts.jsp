@@ -26,7 +26,7 @@
     <div class="filter_wrapper">
         <form action="${pageContext.request.contextPath}/receipts" class="filter_form">
             <select name="statusId" class="filter-select">
-                <option value="0"><fmt:message key="receipts.info.allReceipts"/></option>
+                <option value="-1"><fmt:message key="receipts.info.allReceipts"/></option>
                 <c:forEach var="status" items="${statuses}">
                     <option ${param.statusId == status.id ? "selected" : ""} value="${status.id}">
                             ${status.name}

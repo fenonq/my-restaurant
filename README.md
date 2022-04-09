@@ -13,7 +13,7 @@ and filter the list of dishes by categories. The customer, within one order, can
 
 ## Database Schema
 
-<p align="center"><img src="https://imgur.com/9EE4XmJ.png" width="800"></p>
+<p align="center"><img src="https://imgur.com/sS3uN6O.png" width="800"></p>
 
 ## Launching instruction
 - Clone repository

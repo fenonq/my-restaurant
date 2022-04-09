@@ -27,14 +27,14 @@ public class ReceiptsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Locales locale = Locales.valueOf(req.getSession().getAttribute("locale").toString());
 
-        int statusId = req.getParameter("statusId") == null ? 0 : Integer.parseInt(req.getParameter("statusId"));
+        int statusId = req.getParameter("statusId") == null ? -1 : Integer.parseInt(req.getParameter("statusId"));
         User user = (User) req.getSession().getAttribute("user");
         try {
             List<Status> statuses = DaoFactory.getInstance().getReceiptDao().getAllStatus(locale);
             req.getSession().setAttribute("statuses", statuses);
 
             List<Receipt> receipts;
-            if (statusId == 0) {
+            if (statusId == -1) {
                 receipts = DaoFactory.getInstance().getReceiptDao().findAll(locale);
             } else if (statusId == statuses.size() + 1) {
                 receipts = DaoFactory.getInstance().getReceiptDao().findAllReceiptsAcceptedBy(user.getId(), locale);
