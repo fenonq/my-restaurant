@@ -356,7 +356,7 @@ public class DishDaoImpl extends ConnectionSettings implements DishDao {
 
             int k = 0;
 
-            stmt.setInt(++k, Math.abs(isVisible - 1));
+            stmt.setInt(++k, Math.abs(isVisible));
             stmt.setInt(++k, dishId);
             stmt.executeUpdate();
 

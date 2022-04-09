@@ -47,7 +47,6 @@ public class UpdateCategoryServlet extends HttpServlet {
 
             req.getSession().setAttribute("category", newCategory);
         } catch (DBException | IllegalArgumentException e) {
-            req.getSession().setAttribute("errorMsg", e.getMessage());
             log.error("Error: " + e);
             throw new AppException(e);
         }

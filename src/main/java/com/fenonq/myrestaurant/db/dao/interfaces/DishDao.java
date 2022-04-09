@@ -82,7 +82,7 @@ public interface DishDao extends Dao<Dish> {
      * Change dish status to visible/invisible
      *
      * @param dishId unique dish identifier
-     * @param isVisible is visible dish
+     * @param isVisible status to change
      */
     void changeStatus(int dishId, int isVisible) throws DBException;
 }

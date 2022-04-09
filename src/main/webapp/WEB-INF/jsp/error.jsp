@@ -22,7 +22,6 @@
 <div class="err_container">
     <p class="err_type"><fmt:message key="error.message.error"/></p>
     <p class="err_type"><fmt:message key="error.message.tryAgain"/></p>
-    <p class="err_type"> ${sessionScope.errorMsg}</p>
 </div>
 
 </body>

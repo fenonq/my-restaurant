@@ -62,7 +62,7 @@
                     <form method="post" action="${pageContext.request.contextPath}/account/dish-redactor"
                           class="form_button">
                         <input name="dishId" value="${dishEl.id}" style="display: none">
-                        <input name="isVisible" value="${dishEl.isVisible}" style="display: none">
+                        <input name="isVisible" value="${dishEl.isVisible - 1}" style="display: none">
                         <input name="action" value="-1" style="display: none">
                         <button type="submit">
                             <c:if test="${dishEl.isVisible == 1}">

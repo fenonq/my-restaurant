@@ -53,7 +53,6 @@ public class UpdateDishServlet extends HttpServlet {
             DaoFactory.getInstance().getDishDao().update(subDish, dishDescriptions);
 
         } catch (DBException | IllegalArgumentException e) {
-            req.getSession().setAttribute("errorMsg", e.getMessage());
             log.error("Error: " + e);
             throw new AppException(e);
         }
