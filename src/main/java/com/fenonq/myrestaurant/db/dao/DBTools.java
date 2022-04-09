@@ -28,8 +28,11 @@ public class DBTools {
     public static final String SELECT_CATEGORY_BY_ID = "SELECT * FROM category WHERE id = ?";
     public static final String INSERT_INTO_CATEGORY = "INSERT INTO category VALUES (DEFAULT, ?, ?)";
     public static final String UPDATE_CATEGORY = "UPDATE category SET name_en = ?, name_ua = ? WHERE id = ?";
-    public static final String DELETE_CATEGORY = "DELETE FROM category WHERE id = ?";
+    public static String SELECT_FROM_CATEGORY(Locales locale) {
+        return "SELECT id, name_" + locale.name().toLowerCase() + " FROM category";
+    }
 
+    public static final String DELETE_CATEGORY = "DELETE FROM category WHERE id = ?";
     public static final String SELECT_FROM_USER = "SELECT * FROM user";
     public static final String SELECT_USER_BY_ID = "SELECT * FROM user WHERE id = ?";
     public static final String SELECT_USER_BY_LOGIN = "SELECT * FROM user WHERE login = ?";
@@ -37,10 +40,13 @@ public class DBTools {
     public static final String INSERT_INTO_USER = "INSERT INTO user VALUES (DEFAULT, ?, ?, ?, ?, ?)";
     public static final String UPDATE_ROLE = "UPDATE user SET role_id = ? WHERE id = ?";
     public static final String DELETE_USER = "DELETE FROM user WHERE id = ?";
-    public static final String UPDATE_PASSWORD = "UPDATE user SET password = ? WHERE id = ?";
 
+    public static final String UPDATE_PASSWORD = "UPDATE user SET password = ? WHERE id = ?";
     public static String SELECT_FROM_RECEIPT(Locales locale) {
         return "SELECT receipt.*, status.name_" + locale.name().toLowerCase() + " FROM receipt INNER JOIN status ON receipt.status_id = status.id";
+    }
+    public static String SELECT_FROM_RECEIPT_BY_ID(Locales locale) {
+        return "SELECT receipt.*, status.name_" + locale.name().toLowerCase() + " FROM receipt INNER JOIN status ON receipt.status_id = status.id WHERE receipt.id = ?";
     }
     public static String SELECT_RECEIPT_BY_USER_ID(Locales locale) {
         return "SELECT receipt.*, status.name_" + locale.name().toLowerCase() + " FROM receipt INNER JOIN status ON receipt.status_id = status.id WHERE user_id = ?";
@@ -53,24 +59,22 @@ public class DBTools {
     }
     public static final String UPDATE_STATUS_ID = "UPDATE receipt SET status_id = ?, manager_id = ? WHERE id = ?";
 
+
     public static final String SELECT_DISHES_BY_RECEIPT = "SELECT rhd.count, dish.*, dish_description.name, dish_description.description \n" +
             "FROM receipt_has_dish AS rhd INNER JOIN dish ON rhd.dish_id = dish.id INNER JOIN dish_description ON dish.id = dish_description.dish_id\n" +
             "WHERE receipt_id = ? AND language_id = ?";
+    public static final String DELETE_RECEIPT = "DELETE FROM receipt WHERE id = ?";
 
     public static String SELECT_FROM_STATUS(Locales locale) {
         return "SELECT id, name_" + locale.name().toLowerCase() + " FROM status";
     }
-
     public static final String SELECT_USER_CART_BY_USER_ID = "SELECT user_cart.count, dish.*, dish_description.name, dish_description.description FROM user_cart INNER JOIN dish ON dish.id = user_cart.dish_id INNER JOIN dish_description ON user_cart.dish_id = dish_description.dish_id WHERE user_id = ? AND language_id = ?";
     public static final String INSERT_DISH_INTO_USER_CART = "INSERT INTO user_cart (user_id, dish_id, count) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE count = ?";
     public static final String DELETE_DISH_FROM_USER_CART = "DELETE FROM user_cart WHERE user_id = ? AND dish_id = ?";
     public static final String INSERT_INTO_RECEIPT = "INSERT INTO receipt (user_id, total_price) VALUES (?, ?)";
     public static final String INSERT_INTO_RECEIPT_HAS_DISH = "INSERT INTO receipt_has_dish VALUES (?, ?, ?)";
-    public static final String DELETE_USER_CART = "DELETE FROM user_cart WHERE user_id = ?";
 
-    public static String SELECT_FROM_CATEGORY(Locales locale) {
-        return "SELECT id, name_" + locale.name().toLowerCase() + " FROM category";
-    }
+    public static final String DELETE_USER_CART = "DELETE FROM user_cart WHERE user_id = ?";
 
     public static void close(AutoCloseable stmt) {
         if (stmt != null) {

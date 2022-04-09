@@ -74,6 +74,25 @@ class ReceiptDaoImplTest {
     }
 
     @Test
+    void testFindById() throws DBException, SQLException {
+        assertEquals(Collections.EMPTY_LIST, receiptDao.findAll(Locales.EN));
+        int userId = 1;
+        createReceipt(userId, 2, 1);
+        assertEquals(userId, receiptDao.findById(userId, Locales.EN).getId());
+    }
+
+    @Test
+    void testDeleteById() throws DBException, SQLException {
+        assertEquals(Collections.EMPTY_LIST, receiptDao.findAll(Locales.EN));
+        int userId = 1;
+        createReceipt(userId, 2, 1);
+        assertEquals(1, receiptDao.findById(userId, Locales.EN).getId());
+
+        receiptDao.deleteById(userId);
+        assertEquals(Collections.EMPTY_LIST, receiptDao.findAll(Locales.EN));
+    }
+
+    @Test
     void testFindUserReceipts() throws DBException, SQLException {
         assertEquals(Collections.EMPTY_LIST, receiptDao.findAll(Locales.EN));
         createReceipt(1, 2, 1);

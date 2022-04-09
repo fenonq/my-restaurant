@@ -48,16 +48,6 @@
                 <td>${dishEl.categoryId}</td>
                 <td>${dishEl.weight}</td>
                 <td>${dishEl.price}<pricetag:priceSign/></td>
-                    <%--                <td>--%>
-                    <%--                    <form method="post" action="${pageContext.request.contextPath}/account/dish-redactor"--%>
-                    <%--                          class="form_button">--%>
-                    <%--                        <input name="dishId" value="${dishEl.id}" style="display: none">--%>
-                    <%--                        <input name="action" value="-1" style="display: none">--%>
-                    <%--                        <button type="submit"><fmt:message--%>
-                    <%--                                key="account.settings.redactor.dish.table.button.delete"/></button>--%>
-                    <%--                    </form>--%>
-                    <%--                </td>--%>
-
                 <td>
                     <form method="post" action="${pageContext.request.contextPath}/account/dish-redactor"
                           class="form_button">

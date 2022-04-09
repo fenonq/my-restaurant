@@ -7,7 +7,7 @@ import com.fenonq.myrestaurant.exception.DBException;
 
 import java.util.List;
 
-public interface ReceiptDao {
+public interface ReceiptDao extends Dao <Receipt>{
     /**
      * Finds all user receipts by user id
      *
@@ -15,13 +15,6 @@ public interface ReceiptDao {
      * @return List of receipts
      */
     List<Receipt> findUserReceipts(int userId, Locales locale) throws DBException;
-
-    /**
-     * Finds all receipts in receipt table
-     *
-     * @return List of receipts
-     */
-    List<Receipt> findAll(Locales locale) throws DBException;
 
     /**
      * Finds all receipts accepted by this manager

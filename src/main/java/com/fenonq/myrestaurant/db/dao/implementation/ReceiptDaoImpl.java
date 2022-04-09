@@ -48,6 +48,44 @@ public class ReceiptDaoImpl extends ConnectionSettings implements ReceiptDao {
     }
 
     @Override
+    public Receipt findById(int id, Locales locale) throws DBException {
+        try (Connection con = getConnection();
+             PreparedStatement stmt = con.prepareStatement(SELECT_FROM_RECEIPT_BY_ID(locale))) {
+
+            int k = 0;
+            stmt.setInt(++k, id);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    Receipt receipt = receiptMapper(rs);
+                    receipt.setStatus(new Status(rs.getInt("status_id"), rs.getString("name_" + locale.name().toLowerCase())));
+                    receipt.setDishes(findDishesByReceipt(receipt.getId(), locale));
+                    return receipt;
+                } else {
+                    return null;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DBException("Error in method findById receipts", e);
+        }
+    }
+
+    @Override
+    public void deleteById(int id) throws DBException {
+        try (Connection con = getConnection();
+             PreparedStatement stmt = con.prepareStatement(DELETE_RECEIPT)) {
+
+            int k = 0;
+            stmt.setInt(++k, id);
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new DBException("Error in method deleteById receipt", e);
+        }
+    }
+
+    @Override
     public List<Receipt> findUserReceipts(int userId, Locales locale) throws DBException {
         List<Receipt> receipts = new ArrayList<>();
         try (Connection con = getConnection();

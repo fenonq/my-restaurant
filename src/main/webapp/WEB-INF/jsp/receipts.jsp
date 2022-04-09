@@ -54,20 +54,22 @@
         </thead>
         <tbody>
         <c:forEach var="receipt" items="${receipts}">
-            <%--        <jsp:useBean id="receipt" class="com.denbondd.restaurant.db.entity.Receipt"/>--%>
             <tr>
                 <td>${receipt.id}</td>
                 <td>${receipt.userId}</td>
                 <td>${receipt.managerId}</td>
                 <td>${receipt.status.name}
-                    <c:if test="${receipt.status.id != 5 && (receipt.managerId == 0 || receipt.managerId == user.id)}">
+                    <c:if test="${receipt.status.id != 5 && receipt.status.id != 0 &&
+                     (receipt.managerId == 0 || receipt.managerId == user.id)}">
                         <form method="post" action="${pageContext.request.contextPath}/receipts">
-                            <input value="${receipt.id}" name="id" style="display: none">
-                            <input value="${receipt.status.id + 1}" name="statusId" style="display: none">
+                            <input name="receiptId" value="${receipt.id}" style="display: none">
+                            <input name="statusId" value="${receipt.status.id + 1}" style="display: none">
+                            <input name="action" value="1" style="display: none">
                             <button type="submit"><fmt:message key="receipts.info.table.button.changeStatus"/></button>
                         </form>
                     </c:if>
                 </td>
+
                 <td>${fn:substring(receipt.createDate, 0, 19)}</td>
                 <td>
                     <c:forEach var="dish" items="${receipt.dishes}">
@@ -75,6 +77,25 @@
                     </c:forEach>
                 </td>
                 <td>${receipt.totalPrice}<pricetag:priceSign/></td>
+
+                <td>
+                    <c:if test="${receipt.status.id != 5 && (receipt.managerId == 0 || receipt.managerId == user.id)}">
+                        <form method="post" action="${pageContext.request.contextPath}/receipts"
+                              class="form_button">
+                            <input name="receiptId" value="${receipt.id}" style="display: none">
+                            <input name="statusId" value="${receipt.status.id}" style="display: none">
+                            <input name="action" value="-1" style="display: none">
+                            <button type="submit">
+                                <c:if test="${receipt.status.id == 0}">
+                                    <fmt:message key="receipts.info.table.button.renew"/>
+                                </c:if>
+                                <c:if test="${receipt.status.id != 0}">
+                                    <fmt:message key="receipts.info.table.button.cancel"/>
+                                </c:if>
+                            </button>
+                        </form>
+                    </td>
+                </c:if>
             </tr>
         </c:forEach>
         </tbody>

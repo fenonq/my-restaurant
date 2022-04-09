@@ -1,7 +1,6 @@
 package com.fenonq.myrestaurant.web.servlet;
 
 import com.fenonq.myrestaurant.db.dao.DaoFactory;
-import com.fenonq.myrestaurant.db.entity.Category;
 import com.fenonq.myrestaurant.db.entity.Receipt;
 import com.fenonq.myrestaurant.db.entity.Status;
 import com.fenonq.myrestaurant.db.entity.User;
@@ -11,6 +10,7 @@ import com.fenonq.myrestaurant.exception.DBException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -52,10 +52,20 @@ public class ReceiptsServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = (User) req.getSession().getAttribute("user");
-        int receiptId = Integer.parseInt(req.getParameter("id"));
-        int newStatusId = Integer.parseInt(req.getParameter("statusId"));
+        int action = Integer.parseInt(req.getParameter("action"));
+
         try {
+            User user = (User) req.getSession().getAttribute("user");
+            int receiptId = Integer.parseInt(req.getParameter("receiptId"));
+            int newStatusId = Integer.parseInt(req.getParameter("statusId"));
+
+            if (action == -1) {
+                if (newStatusId == 0) {
+                    newStatusId = 2;
+                } else {
+                    newStatusId = 0;
+                }
+            }
             DaoFactory.getInstance().getReceiptDao().changeStatus(receiptId, newStatusId, user.getId());
         } catch (DBException e) {
             log.error("Error: " + e);

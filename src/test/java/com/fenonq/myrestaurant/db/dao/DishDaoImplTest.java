@@ -272,7 +272,7 @@ class DishDaoImplTest {
 
         assertEquals(visible, dishDao.findAll(Locales.EN).get(0).getIsVisible());
         dishDao.changeStatus(dishDao.findAll(Locales.EN).get(0).getId(),
-                dishDao.findAll(Locales.EN).get(0).getIsVisible());
+                inVisible);
         assertEquals(inVisible, dishDao.findAll(Locales.EN).get(0).getIsVisible());
     }
 
