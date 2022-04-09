@@ -199,6 +199,8 @@ CREATE TABLE IF NOT EXISTS status
 );
 
 INSERT INTO status
+VALUES (0, 'Canceled', 'Відмінено');
+INSERT INTO status
 VALUES (1, 'New', 'Новий');
 INSERT INTO status
 VALUES (2, 'Accepted', 'Прийнято');
