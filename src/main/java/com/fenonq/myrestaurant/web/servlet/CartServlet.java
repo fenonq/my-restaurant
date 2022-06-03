@@ -9,6 +9,7 @@ import com.fenonq.myrestaurant.exception.DBException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,6 +33,8 @@ public class CartServlet extends HttpServlet {
         if (req.getSession().getAttribute("user") == null) {
             if (req.getSession().getAttribute("cart") == null) {
                 req.getSession().setAttribute("cart", cart);
+            } else {
+                cart = (Map<Dish, Integer>) req.getSession().getAttribute("cart");
             }
         } else {
             User user = (User) req.getSession().getAttribute("user");
@@ -101,7 +104,6 @@ public class CartServlet extends HttpServlet {
                 } else {
                     DaoFactory.getInstance().getUserCartDao().addDishToCart(user.getId(), dishId, count);
                 }
-                req.getSession().removeAttribute("cart");
             }
             resp.sendRedirect(req.getContextPath() + "/cart");
         } catch (DBException e) {

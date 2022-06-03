@@ -77,9 +77,8 @@
 
             <div class="strip"></div>
             <div class="order_wrapper">
-                <c:if test="${user != null}">
-                    <fmt:message key="cart.info.totalPrice"/>: ${sessionScope.totalPrice}<pricetag:priceSign/>
-                </c:if>
+                <fmt:message key="cart.info.totalPrice"/>: ${sessionScope.totalPrice}
+                <pricetag:priceSign/>
                 <form action="${pageContext.request.contextPath}/account" method="post" class="order_button">
                     <button type="submit"><fmt:message key="cart.button.order"/></button>
                 </form>
